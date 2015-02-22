@@ -1,0 +1,39 @@
+{
+	"name": "makebird-node",
+	"version": "0.0.1",
+	"description": "geeks builder for unmodular languages",
+    "homepage": "http://makebird.com",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/homobel/makebird-node"
+	},
+	"keywords": [
+		"makebird",
+		"builder"
+	],
+	"author": "Archy Sharp",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/homobel/makebird-node/issues"
+	},
+	"dependencies": {
+        "commander": "2.6.0"
+	},
+    "bin": {
+        "makebird": "bin/makebird.js"
+    },
+    "engines": {
+        "node": ">= 0.10"
+    },
+    "keywords": [
+        "builder",
+        "module",
+        "include",
+        "require",
+        "dependencies"
+    ]
+}

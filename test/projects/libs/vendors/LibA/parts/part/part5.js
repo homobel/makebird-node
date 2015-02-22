@@ -1,0 +1,1 @@
+function part5() {alert(4)}
