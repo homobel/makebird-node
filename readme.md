@@ -8,12 +8,15 @@ Makebird projects has representation in context tree. This tree may be distribut
 ## Usage
 
 *installation*
+
 	npm i -g makebird-node
 
 *cmd*
+
 	makebird --help
 
 *from code*
+
 	makebird.build(config, function(err, data, times) {
 		if (err) {
 			console.log(err);
