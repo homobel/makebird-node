@@ -7,29 +7,37 @@ Makebird projects has representation in context tree. This tree may be distribut
 
 ## Usage
 
-*installation*
+### Installation
 
-	npm i -g makebird-node
+```bash
+npm i -g makebird-node
+```
 
-*cmd*
+### Bash
 
-	makebird --help
+```bash
+makebird --help
+```
 
-*from code*
+### Code
 
-	makebird.build(config, function(err, data, times) {
-		if (err) {
-			console.log(err);
-			return;
-		}
+```js
+makebird.build(config, function(err, data, times) {
+	if (err) {
+		console.log(err);
+		return;
+	}
 
-		// data usage
+	// data usage
 
-	});
+});
+```
 
 See tests folder for more examples.
 
 ## Tokens
+
+```js
 
 	//~ name [name]
 	// set context name
@@ -69,32 +77,22 @@ See tests folder for more examples.
 	//~ mind [path]
 	// means take into account bases from other project but don't include them in current one
 
+```
+
 ### Description
 
 * name = variable: Word without spaces can contain letters only.
 * namespace: Names separated by comma must contain at least 2 names.
 * path: Path to the file relative to current file.
 
+### Recommendations & Notes
+
+* use CamelCase with first capital letter in name token
+* use camelCase with first stroke letter in if token
+* define primary for debug, eis and some other flags.
+* in libraries use ~.namespace notation for internal bases (so it can be put in other contexts)
+* use longest possible namespases
+
 ## Licence
 
 The MIT License (MIT)
-
-Copyright (c) 2014 Archy Sharp
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
