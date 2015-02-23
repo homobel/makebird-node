@@ -7,12 +7,13 @@ Makebird projects has representation in context tree. This tree may be distribut
 
 ## Usage
 
+*installation*
 	npm i -g makebird-node
 
-	// cmd
+*cmd*
 	makebird --help
 
-	// node
+*from code*
 	makebird.build(config, function(err, data, times) {
 		if (err) {
 			console.log(err);
@@ -22,6 +23,8 @@ Makebird projects has representation in context tree. This tree may be distribut
 		// data usage
 
 	});
+
+See tests folder for more examples.
 
 ## Tokens
 
