@@ -1,11 +1,11 @@
 
-#Makebird
+# Makebird
 
 Makebird is a build tool for languages without modular system.
 
 Makebird projects has representation in context tree. This tree may be distributed in file system. Contexts can be included or excluded in result text via base tokens that can be added by owner or by other developers.
 
-##Usage
+## Usage
 
 	npm i -g makebird-node
 
@@ -23,7 +23,7 @@ Makebird projects has representation in context tree. This tree may be distribut
 
 	});
 
-##Tokens
+## Tokens
 
 	//~ name [name]
 	// set context name
@@ -63,13 +63,13 @@ Makebird projects has representation in context tree. This tree may be distribut
 	//~ mind [path]
 	// means take into account bases from other project but don't include them in current one
 
-###Description
+### Description
 
 * name = variable: Word without spaces can contain letters only.
 * namespace: Names separated by comma must contain at least 2 names.
 * path: Path to the file relative to current file.
 
-##Licence
+## Licence
 
 The MIT License (MIT)
 
