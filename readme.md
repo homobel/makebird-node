@@ -7,19 +7,21 @@ Makebird projects has representation in context tree. This tree may be distribut
 
 ## Usage
 
-### Installation
+### Bash
 
 ```bash
-npm i -g makebird-node
+npm i -g makebird
 ```
-
-### Bash
 
 ```bash
 makebird --help
 ```
 
 ### Code
+
+```bash
+npm i makebird
+```
 
 ```js
 makebird.build(config, function(err, data, times) {
@@ -38,45 +40,43 @@ See tests folder for more examples.
 ## Tokens
 
 ```js
+//~ name [name]
+// set context name
 
-	//~ name [name]
-	// set context name
+//~ info [info]
+// set context description
 
-	//~ info [info]
-	// set context description
+//~ part [path]
+// just external file in project
 
-	//~ part [path]
-	// just external file in project
+//~ component [path]
+// external file that is a context also
 
-	//~ component [path]
-	// external file that is a context also
+//~ define [variable]
+// define variable
 
-	//~ define [variable]
-	// define variable
+//~ base [namespace]
+//~ base [namespace].*
+//~ base ~.[namespace]
+//~ base ~.[namespace].*
+// set dependency of context
+// ~ means all parent contexts behind (namespace is unpredictable)
+// * means all context below
 
-	//~ base [namespace]
-	//~ base [namespace].*
-	//~ base ~.[namespace]
-	//~ base ~.[namespace].*
-	// set dependency of context
-	// ~ means all parent contexts behind (namespace is unpredictable)
-	// * means all context below
+//~ if [variable]
+//~ if this.[name]
+//~ if this.*
+//~ if [namespace]
+//~ if [namespace].*
+// open new context
+// this means namespace from parent context to root
+// * means any module within current context
 
-	//~ if [variable]
-	//~ if this.[name]
-	//~ if this.*
-	//~ if [namespace]
-	//~ if [namespace].*
-	// open new context
-	// this means namespace from parent context to root
-	// * means any module within current context
+//~ endif
+// close context
 
-	//~ endif
-	// close context
-
-	//~ mind [path]
-	// means take into account bases from other project but don't include them in current one
-
+//~ mind [path]
+// means take into account bases from other project but don't include them in current one
 ```
 
 ### Description
