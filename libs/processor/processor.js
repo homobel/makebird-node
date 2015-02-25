@@ -1,10 +1,14 @@
 var process = require('./process/process'),
 	removeEmptyLines = require('../utils/remove-empty-lines'),
 	contextProcess = require('./process/processContext'),
+	extend = require('../utils/extend'),
+	defaults = require('./config'),
 	EOL = require('os').EOL,
 	NL = EOL + EOL;
 
-module.exports = function(rootPart, options, cb) {
+module.exports = function(rootPart, config, cb) {
+
+	config = extend(defaults, config);
 
 	var err = rootPart.hasErrors();
 
@@ -17,7 +21,7 @@ module.exports = function(rootPart, options, cb) {
 
 	rootPart.rootContext.checkRequired();
 
-	var	res = removeEmptyLines(process(rootPart, options, copyrightsList, contextProcess)),
+	var	res = removeEmptyLines(process(rootPart, config, copyrightsList, contextProcess)),
 		copyrights = copyrightsList.join(NL);
 
 	if (copyrights.length) {

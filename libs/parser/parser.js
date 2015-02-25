@@ -6,7 +6,7 @@ var path = require('path'),
 
 module.exports = function(config, cb) {
 
-	config = extend(config, defaults);
+	config = extend(defaults, config);
 
 	var factory = new PartsFactory(config),
 		start = Date.now(),

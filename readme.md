@@ -3,7 +3,7 @@
 
 Makebird is a build tool for languages without modular system.
 
-Makebird projects has representation in context tree. This tree may be distributed in file system. Contexts can be included or excluded in result text via base tokens that can be added by owner or by other developers.
+Makebird projects has representation in context tree. This tree may be distributed in file system. Contexts can be included or excluded in result text via base tokens that can be added by owner or by other developers (this behaviour is optional).
 
 ## Usage
 
@@ -14,7 +14,19 @@ npm i -g makebird
 ```
 
 ```bash
-makebird --help
+
+  Usage: makebird [options]
+
+  Options:
+
+    -h, --help                         output usage information
+    -V, --version                      output the version number
+    -f, --file [src]                   input file
+    -ch, --charset                     input charset
+    -ou, --onlyUsed                    include only used
+    -pe, --partExtensions [list]       part extensions
+    -ce, --copyrightExtensions [list]  copyright extensions
+
 ```
 
 ### Code
@@ -24,13 +36,13 @@ npm i makebird
 ```
 
 ```js
-makebird.build(config, function(err, data, times) {
+makebird.build(config, function(err, result, times) {
 	if (err) {
 		console.log(err);
 		return;
 	}
 
-	// data usage
+	// result usage
 
 });
 ```
