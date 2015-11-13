@@ -12,11 +12,11 @@ function contextHasBase(context, bases) {
 }
 
 function isRequiredContext(context) {
-	return context.isRequired || context.isRoot;
+	return context.isRequired || context.isRoot || context.isPart;
 }
 
 function isNotRequiredContext(context) {
-	return !context.isRequired && !context.isRoot;
+	return !context.isRequired && !context.isRoot && !context.isPart;
 }
 
 function setAsRequired(context) {

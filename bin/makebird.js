@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 
-var fs = require('fs'),
-	path = require('path'),
+var path = require('path'),
 	program = require('commander'),
-	package = require('../package.json'),
-	makebird = require('../' + package.main);
+	packageFile = require('../package.json'),
+	makebird = require('../' + packageFile.main);
 
 program
-	.version(package.version)
+	.version(packageFile.version)
 	.option('-f, --file [src]', 'input file')
 	.option('-ch, --charset', 'input charset')
 	.option('-ou, --onlyUsed', 'include only used')
@@ -16,11 +15,15 @@ program
 	.parse(process.argv);
 
 if (program.partExtensions) {
-	program.partExtensions =  program.partExtensions.split(',');
+	program.partExtensions =  program.partExtensions.split(',').map(function(c) {
+		return c.trim();
+	});
 }
 
 if (program.copyrightExtensions) {
-	program.copyrightExtensions =  program.copyrightExtensions.split(',');
+	program.copyrightExtensions =  program.copyrightExtensions.split(',').map(function(c) {
+		return c.trim();
+	});
 }
 
 program.file = path.join(process.cwd(), program.file);
@@ -35,7 +38,7 @@ var config = {
 	includeOnlyUsed: program.onlyUsed || true
 };
 
-makebird.build(config, function(err, data, times) {
+makebird.build(config, function(err, data) {
 	if (err) {
 		console.log(err);
 		return;
