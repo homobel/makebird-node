@@ -26,7 +26,7 @@ if (program.copyrightExtensions) {
 	});
 }
 
-program.file = path.join(process.cwd(), program.file);
+program.file = path.resolve(program.file);
 
 var config = {
 	input: program.file,

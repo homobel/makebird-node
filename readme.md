@@ -22,10 +22,10 @@ npm i -g makebird
     -h, --help                         output usage information
     -V, --version                      output the version number
     -f, --file [src]                   input file
-    -ch, --charset                     input charset
-    -ou, --onlyUsed                    include only used
-    -pe, --partExtensions [list]       part extensions
-    -ce, --copyrightExtensions [list]  copyright extensions
+    -t, --charset                     input charset
+    -o, --onlyUsed                    include only used
+    -p, --partExtensions [list]       part extensions
+    -c, --copyrightExtensions [list]  copyright extensions
 
 ```
 
