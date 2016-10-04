@@ -1,17 +1,17 @@
 #!/usr/bin/env node
 
-var path = require('path'),
-	program = require('commander'),
-	packageFile = require('../package.json'),
-	makebird = require('../' + packageFile.main);
+var path = require('path');
+var program = require('commander');
+var packageFile = require('../package.json');
+var makebird = require('../' + packageFile.main);
 
 program
 	.version(packageFile.version)
 	.option('-f, --file [src]', 'input file')
-	.option('-ch, --charset', 'input charset')
-	.option('-ou, --onlyUsed', 'include only used')
-	.option('-pe, --partExtensions [list]', 'part extensions')
-	.option('-ce, --copyrightExtensions [list]', 'copyright extensions')
+	.option('-t, --charset', 'input charset')
+	.option('-o, --onlyUsed', 'include only used')
+	.option('-p, --partExtensions [list]', 'part extensions')
+	.option('-c, --copyrightExtensions [list]', 'copyright extensions')
 	.parse(process.argv);
 
 if (program.partExtensions) {
@@ -35,7 +35,7 @@ var config = {
 		copyrightExtensions: program.copyrightExtensions || ['.txt']
 	},
 	charset: program.charset || 'utf8',
-	includeOnlyUsed: program.onlyUsed || true
+	includeOnlyUsed: program.onlyUsed ? program.onlyUsed === 'true' : true
 };
 
 makebird.build(config, function(err, data) {

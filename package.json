@@ -1,6 +1,6 @@
 {
 	"name": "makebird",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"description": "geeks builder for unmodular languages",
     "homepage": "http://makebird.com",
 	"main": "index.js",
@@ -21,7 +21,7 @@
 		"url": "https://github.com/homobel/makebird-node/issues"
 	},
 	"dependencies": {
-        "commander": "2.6.0"
+        "commander": "2.9.0"
 	},
     "bin": {
         "makebird": "bin/makebird.js"
