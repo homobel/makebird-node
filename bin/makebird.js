@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-var path = require('path');
-var program = require('commander');
-var packageFile = require('../package.json');
-var makebird = require('../' + packageFile.main);
+var path = require('path'),
+	program = require('commander'),
+	packageFile = require('../package.json'),
+	makebird = require('../' + packageFile.main);
 
 program
 	.version(packageFile.version)

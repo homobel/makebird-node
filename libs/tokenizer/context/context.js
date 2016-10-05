@@ -104,7 +104,14 @@ function ContextProto() {
 				res;
 
 			if (context.parent && !context.isMind && this.isBaseRelated()) {
-				res = context.parent.namespace.slice(0);
+				var parent = context.parent;
+				if (!parent.isComponent) {
+					while (parent.parent && !parent.isComponent) {
+						parent = parent.parent;
+					}
+				}
+
+				res = parent.namespace.slice(0);
 				res.push(context.nameText);
 			}
 			else if (this.start && !this.isBaseRelated()) {

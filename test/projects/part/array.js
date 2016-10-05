@@ -1,0 +1,6 @@
+
+//~ name Array
+
+function reduce() {
+
+}

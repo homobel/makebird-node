@@ -1,5 +1,5 @@
 
-var	TokensIterator = require('./iterators/token-iterator'),
+var TokensIterator = require('./iterators/token-iterator'),
 	ContextManager = require('./context/context-manager'),
 	statuses = require('./iterators/statuses'),
 	error = require('../utils/error');

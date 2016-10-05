@@ -1,6 +1,6 @@
 {
 	"name": "makebird",
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"description": "geeks builder for unmodular languages",
     "homepage": "http://makebird.com",
 	"main": "index.js",
@@ -11,10 +11,6 @@
 		"type": "git",
 		"url": "https://github.com/homobel/makebird-node"
 	},
-	"keywords": [
-		"makebird",
-		"builder"
-	],
 	"author": "Archy Sharp",
 	"license": "MIT",
 	"bugs": {
@@ -30,6 +26,8 @@
         "node": ">= 0.10"
     },
     "keywords": [
+		"makebird",
+		"builder",
         "builder",
         "module",
         "include",

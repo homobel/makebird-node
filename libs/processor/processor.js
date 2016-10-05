@@ -21,7 +21,7 @@ module.exports = function(rootPart, config, cb) {
 
 	rootPart.rootContext.checkRequired();
 
-	var	res = removeEmptyLines(process(rootPart, config, copyrightsList, contextProcess)),
+	var res = removeEmptyLines(process(rootPart, config, copyrightsList, contextProcess)),
 		copyrights = copyrightsList.join(NL);
 
 	if (copyrights.length) {

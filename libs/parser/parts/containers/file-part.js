@@ -1,5 +1,5 @@
 
-var	fs = require('fs'),
+var fs = require('fs'),
 	path = require('path'),
 	types = require('../types'),
 	error = require('../../../utils/error'),

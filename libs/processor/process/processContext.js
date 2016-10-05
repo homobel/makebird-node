@@ -1,5 +1,5 @@
 
-var	remover = require('./remove'),
+var remover = require('./remove'),
 	addSpaces = require('../../utils/add-spaces'),
 	removeToken = remover.removeToken,
 	removeContext = remover.removeContext,
