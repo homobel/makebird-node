@@ -86,10 +86,13 @@ function BaseTokenProto() {
 
 	this.transformToReg = function() {
 		var res = '';
-		if (!this.isRelative()) {
+		if (this.isRelative()) {
+			res += '(?:^|.+[.])';
+		}
+		else {
 			res += '^';
 		}
-		res += this.getPhysicalNsString();
+		res += this.getPhysicalNsString().replace('.', '[.]');
 		if (!this.isGeneral()) {
 			res += '$';
 		}

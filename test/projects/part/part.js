@@ -1,6 +1,6 @@
 
 //~ name Libs
 
-//~ base ~.Ree.Array
+//~ base ~.Ree.Array.*
 
 //~ component ree.js
