@@ -1,32 +1,45 @@
 
-# Makebird
+# Description
 
-Makebird is a build tool for languages without modular system.
+Makebird is zero abstraction cost module system.
 
-Makebird projects has representation in context tree. This tree may be distributed in file system. Contexts can be included or excluded in result text via base tokens that can be added by owner or by other developers (this behaviour is optional).
+Am I need it?
+* Would you like to have project spread in multiple files and then build them into one?
+* Does your language have good enough built in modules support?
+* Would you like paste content of a file to specific place into another one?
+* Do you need toggle peaces of code based on some flags or based on code usage?
+* Do you have dependent projects with similar structure of dependencies?
+* Do you care about code beauty after build stage?
+
+Makebird project has representation in context tree. This tree can be distributed in file system. Context can be included or excluded in result text (see define, if, component, base tokens description).
 
 ## Usage
 
 ### Bash
 
+Installation
 ```bash
 npm i -g makebird
-```
 
-```bash
+makebird -h
 
-  Usage: makebird [options]
+  Usage: makebird [options] <file ...>
 
   Options:
 
-    -h, --help                         output usage information
-    -V, --version                      output the version number
-    -f, --file [src]                   input file
-    -t, --charset                     input charset
-    -o, --onlyUsed                    include only used
-    -p, --partExtensions [list]       part extensions
-    -c, --copyrightExtensions [list]  copyright extensions
+    -h, --help                       output usage information
+    -V, --version                    output the version number
+    -t --charset <charset>           input files charset
+    -o --no-onlyUsed                 include only used contexts
+    -p --partExtensions [list]       allowed extensions
+    -c --copyrightExtensions [list]  copyright extensions
+```
 
+Defaults appropriately: utf8 [.js] [.txt]
+
+Write result in output file
+```bash
+makebird path/to/input/file > output/file
 ```
 
 ### Code
@@ -36,6 +49,8 @@ npm i makebird
 ```
 
 ```js
+var makebird = require('makebird');
+
 makebird.build(config, function(err, result, times) {
 	if (err) {
 		console.log(err);
@@ -47,64 +62,296 @@ makebird.build(config, function(err, result, times) {
 });
 ```
 
-See tests folder for more examples.
-
 ## Tokens
 
 ```js
-//~ name [name]
 // set context name
+//~ name [name]
 
+// set context description (may be used in UI tools in future)
 //~ info [info]
-// set context description
 
+// paste content of the file instead token (without creating of new context)
 //~ part [path]
-// just external file in project
 
+// paste content of the file instead token (with creating of new context)
 //~ component [path]
-// external file that is a context also
+
+// files inclueded as components must contain name token
+// otherwise it will be randomly generated so you can't reffer to the context in base token
 
 //~ define [variable]
-// define variable
+// currently supported just boolean value (defined or not)
 
+// set dependency of context
 //~ base [namespace]
 //~ base [namespace].*
 //~ base ~.[namespace]
 //~ base ~.[namespace].*
-// set dependency of context
-// ~ means all parent contexts behind (namespace is unpredictable)
-// * means all context below
 
+// ~ is placeholder for all parent contexts
+// * is placeholder for context children
+// absolute namespaces (without ~) not so usefull since namespace itself may easily change
+
+// open new context
 //~ if [variable]
 //~ if this.[name]
 //~ if this.*
 //~ if [namespace]
 //~ if [namespace].*
-// open new context
-// this means namespace from parent context to root
+
+// this is placeholder for current context
 // * means any module within current context
 
 //~ endif
 // close context
 
+// //~ component a.txt (a.txt has a name) is equals to //~ if this.a ... //~endif
+
 //~ mind [path]
 // means take into account bases from other project but don't include them in current one
+
+// name & variable: Word without spaces can contain letters only
+// namespace: Names separated by dot. Must contain at least 2 names (special names included).
+// path: Path to the file relative to current file
 ```
-
-### Description
-
-* name = variable: Word without spaces can contain letters only.
-* namespace: Names separated by comma must contain at least 2 names.
-* path: Path to the file relative to current file.
 
 ### Recommendations & Notes
 
 * use CamelCase with first capital letter in name token
 * use camelCase with first stroke letter in if token
-* define primary for debug, eis and some other flags.
-* in libraries use ~.namespace notation for internal bases (so it can be put in other contexts)
-* use longest possible namespases
+* define token is aimed for debug mode and some others mostly
+* in libraries use ~.namespace notation for internal bases
+* use longest possible namespaces to avoid conflicts 
 
-## Licence
+## Example
 
-The MIT License (MIT)
+_This example presents in examples directory._
+
+Let's say we have a warnings library (js & css files) and we use it in our application.
+
+_app/index.html_
+```html
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Makebird app example</title>
+        <link rel="stylesheet" href="dist/style.css">
+    </head>
+    <body>
+        <script src="dist/script.js"></script>
+    </body>
+</html>
+```
+
+_app/copyright.txt_
+```
+/*
+* Test app example
+* (C) Archy Sharp 2016
+*/
+```
+
+_app/js/warnings.js_
+```js
+//~ name Warnings
+
+var warnings = new function() {
+
+	function createWarning(text, type) {
+		var node = document.createElement('div');
+		node.classList.add('warning');
+		node.classList.add(type);
+		node.textContent = text;
+		return node;
+	}
+
+	//~ if this.error
+	this.error = function(node, text) {
+		node.appendChild(createWarning(text, 'error'));
+	};
+	//~ endif
+
+	//~ if this.notification
+	this.notification = function(node, text) {
+		node.appendChild(createWarning(text, 'notification'));
+	};
+	//~ endif
+
+	//~ if this.info
+	this.info = function(node, text) {
+		node.appendChild(createWarning(text, 'info'));
+	};
+	//~ endif
+
+};
+```
+
+_app/js/app.js_
+```js
+//~ copyright ../copyright.txt
+
+//~ define withError
+//~ base ~.Warnings.notification
+
+//~ if withError
+	//~ base ~.Warnings.error
+//~ endif
+
+(function() {
+
+	//~ component warnings.js
+
+	var body = document.body;
+
+	warnings.notification(body, 'Notification message');
+	//~ if withError
+	warnings.error(body, 'Error message');
+	//~ endif
+
+	//~ part other.js
+
+
+})();
+```
+
+_app/js/other.js_
+```js
+// just example of part token
+```
+
+_app/css/warnings.css_
+```css
+//~ name Warnings
+
+.warning {
+    padding: 30px;
+    font-size: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,.1);
+    margin-bottom: 10px;
+}
+
+//~ if this.error
+.warning.error {
+    background: tomato;
+    color: white;
+}
+//~ endif
+
+//~ if this.notification
+.warning.notification {
+    background: gainsboro;
+    color: darkslategrey;
+}
+//~ endif
+
+//~ if this.info
+.warning.info {
+    background: deepskyblue;
+    color: black;
+}
+//~ endif
+```
+
+_app/css/app.css_
+```css
+//~ copyright ../copyright.txt
+
+body {
+    padding: 30px;
+    margin: 0;
+    font: normal 13px/16px Arial, sans-serif;
+}
+
+//~ mind ../js/app.js
+//~ component warnings.css
+```
+
+**RESULTS**
+
+```bash
+../examples: makebird app/js/app.js > app/dist/script.js
+```
+
+```bash
+../examples: makebird app/css/app.css -p .css > app/dist/style.css
+```
+
+_app/dist/script.js_
+```js
+/*
+* test app example
+* (C) Archy Sharp 2016
+*/
+
+
+
+
+(function() {
+
+	var warnings = new function() {
+
+		function createWarning(text, type) {
+			var node = document.createElement('div');
+			node.classList.add('warning');
+			node.classList.add(type);
+			node.textContent = text;
+			return node;
+		}
+
+		this.error = function(node, text) {
+			node.appendChild(createWarning(text, 'error'));
+		};
+
+		this.notification = function(node, text) {
+			node.appendChild(createWarning(text, 'notification'));
+		};
+
+	};
+
+	var body = document.body;
+
+	warnings.notification(body, 'Notification message');
+
+	warnings.error(body, 'Error message');
+
+	// just example of part token
+
+})();
+```
+
+_app/dist/style.css_
+```js
+/*
+* test app example
+* (C) Archy Sharp 2016
+*/
+
+
+
+body {
+    padding: 30px;
+    margin: 0;
+    font: normal 13px/16px Arial, sans-serif;
+}
+
+.warning {
+    padding: 30px;
+    font-size: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,.1);
+    margin-bottom: 10px;
+}
+
+.warning.error {
+    background: tomato;
+    color: white;
+}
+
+.warning.notification {
+    background: gainsboro;
+    color: darkslategrey;
+}
+```

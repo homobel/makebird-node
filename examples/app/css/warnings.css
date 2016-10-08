@@ -1,0 +1,30 @@
+//~ name Warnings
+
+.warning {
+    padding: 30px;
+    font-size: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,.1);
+    margin-bottom: 10px;
+}
+
+//~ if this.error
+.warning.error {
+    background: tomato;
+    color: white;
+}
+//~ endif
+
+//~ if this.notification
+.warning.notification {
+    background: gainsboro;
+    color: darkslategrey;
+}
+//~ endif
+
+//~ if this.info
+.warning.info {
+    background: deepskyblue;
+    color: black;
+}
+//~ endif

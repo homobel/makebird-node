@@ -1,0 +1,32 @@
+/*
+* test app example
+* (C) Archy Sharp 2016
+*/
+
+
+
+body {
+    padding: 30px;
+    margin: 0;
+    font: normal 13px/16px Arial, sans-serif;
+}
+
+.warning {
+    padding: 30px;
+    font-size: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,.1);
+    margin-bottom: 10px;
+}
+
+.warning.error {
+    background: tomato;
+    color: white;
+}
+
+.warning.notification {
+    background: gainsboro;
+    color: darkslategrey;
+}
+
+

@@ -1,8 +1,8 @@
 {
 	"name": "makebird",
-	"version": "0.0.9",
+	"version": "0.0.10",
 	"description": "geeks builder for unmodular languages",
-    "homepage": "http://makebird.com",
+	"homepage": "http://makebird.org",
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
@@ -17,21 +17,21 @@
 		"url": "https://github.com/homobel/makebird-node/issues"
 	},
 	"dependencies": {
-        "commander": "2.9.0"
+		"commander": "2.9.0"
 	},
-    "bin": {
-        "makebird": "bin/makebird.js"
-    },
-    "engines": {
-        "node": ">= 0.10"
-    },
-    "keywords": [
+	"bin": {
+		"makebird": "bin/makebird.js"
+	},
+	"engines": {
+		"node": ">= 0.10"
+	},
+	"keywords": [
 		"makebird",
 		"builder",
-        "builder",
-        "module",
-        "include",
-        "require",
-        "dependencies"
-    ]
+		"builder",
+		"module",
+		"include",
+		"require",
+		"dependencies"
+	]
 }
