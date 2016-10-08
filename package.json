@@ -1,7 +1,7 @@
 {
 	"name": "makebird",
-	"version": "0.0.10",
-	"description": "geeks builder for unmodular languages",
+	"version": "0.0.11",
+	"description": "geeks builder for non modular languages",
 	"homepage": "http://makebird.org",
 	"main": "index.js",
 	"scripts": {
@@ -28,10 +28,11 @@
 	"keywords": [
 		"makebird",
 		"builder",
-		"builder",
 		"module",
 		"include",
 		"require",
-		"dependencies"
+		"dependencies",
+		"replace",
+		"context"
 	]
 }

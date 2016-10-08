@@ -103,13 +103,13 @@ makebird.build(config, function(err, result, times) {
 // this is placeholder for current context
 // * means any module within current context
 
-//~ endif
 // close context
+//~ endif
 
-// //~ component a.txt (a.txt has a name) is equals to //~ if this.a ... //~endif
+// //~ component a.txt (a.txt has "a" name) is equal to //~ if this.a ... //~ endif
 
 //~ mind [path]
-// means take into account bases from other project but don't include them in current one
+// take into account bases from other project but don't include them in current one
 
 // name & variable: Word without spaces can contain letters only
 // namespace: Names separated by dot. Must contain at least 2 names (special names included).
@@ -118,10 +118,10 @@ makebird.build(config, function(err, result, times) {
 
 ### Recommendations & Notes
 
-* use CamelCase with first capital letter in name token
-* use camelCase with first stroke letter in if token
+* use CamelCase with first capital letter for name token
+* use camelCase with first stroke letter for if token
 * define token is aimed for debug mode and some others mostly
-* in libraries use ~.namespace notation for internal bases
+* inside libraries use ~.namespace notation for internal bases
 * use longest possible namespaces to avoid conflicts 
 
 ## Example
