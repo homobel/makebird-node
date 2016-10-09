@@ -3,7 +3,7 @@
 
 Makebird is zero abstraction cost module system.
 
-Am I need it?
+Do I need it?
 * Would you like to have project spread in multiple files and then build them into one?
 * Does your language have good enough built in modules support?
 * Would you like paste content of a file to specific place into another one?
@@ -65,11 +65,17 @@ makebird.build(config, function(err, result, times) {
 ## Tokens
 
 ```js
+//!~ makebird comment will be cut out of the result
+
 // set context name
 //~ name [name]
 
 // set context description (may be used in UI tools in future)
 //~ info [info]
+
+// stack copyright file
+//~ copyright [path]
+// all copyrights will be on the top of result text
 
 // paste content of the file instead token (without creating of new context)
 //~ part [path]

@@ -1,6 +1,6 @@
 {
 	"name": "makebird",
-	"version": "0.0.11",
+	"version": "0.0.12",
 	"description": "geeks builder for non modular languages",
 	"homepage": "http://makebird.org",
 	"main": "index.js",
