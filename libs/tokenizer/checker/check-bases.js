@@ -15,18 +15,27 @@ function isRequiredContext(context) {
 	return context.isRequired || context.isRoot || context.isPart;
 }
 
-function isNotRequiredContext(context) {
-	return !context.isRequired && !context.isRoot && !context.isPart;
+function isParentsRequired(context) {
+	while (context = context.parent) {
+		if (!isRequiredContext(context)) {
+			return false;
+		}
+	}
+	return true;
+}
+
+function isNotRequiredComponentWithRequiredParent(context) {
+	return (!context.isRequired && !context.isRoot && !context.isPart) &&
+			context.isComponent &&
+			isParentsRequired(context);
 }
 
 function setAsRequired(context) {
 	context.isRequired = true;
 }
 
-function checkBasesOnce(tree) {
-
-	var repeat = false,
-		bases = [];
+function checkBases(tree) {
+	var bases = [];
 
 	// collect bases from open contexts
 	tree.forEachBase(function(context) {
@@ -34,19 +43,13 @@ function checkBasesOnce(tree) {
 	}, isRequiredContext);
 
 	// update closed contexts
-	tree.forEachBase(function(context) {
+	return tree.forEachBase(function(context) {
 		if (contextHasBase(context, bases)) {
 			context.untilRoot(setAsRequired);
-			repeat = true;
+			return true;
 		}
-	}, isNotRequiredContext, true);
+	}, isNotRequiredComponentWithRequiredParent);
 
-	return repeat;
-
-}
-
-function checkBases(tree) {
-	while (checkBasesOnce(tree)) {}
 }
 
 module.exports = checkBases;

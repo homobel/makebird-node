@@ -129,7 +129,7 @@ function ContextProto() {
 	this.forEachBase = function(cb, condition) {
 
 		function processPartToken(token) {
-			process(token.requiredPart.tokenizer.contextManager.root);
+			return process(token.requiredPart.tokenizer.contextManager.root);
 		}
 
 		function process(context) {
@@ -149,19 +149,19 @@ function ContextProto() {
 				return true;
 			}
 
-			context.context.some(process);
-			context.parts.some(processPartToken);
-			context.components.some(processPartToken);
-			context.mindes.some(processPartToken);
+			return context.context.some(process) ||
+					context.parts.some(processPartToken) ||
+					context.components.some(processPartToken) ||
+					context.mindes.some(processPartToken);
 		}
 
-		process(this);
+		return process(this);
 
 	};
 
 	this.forEachVariable = function(cb) {
 
-		this.forEachBase(cb, function(c) {
+		return this.forEachBase(cb, function(c) {
 			return c.isVariable;
 		});
 
@@ -202,8 +202,20 @@ function ContextProto() {
 	};
 
 	this.checkRequired = function() {
-		checkVariables(this);
-		checkBases(this);
+
+		function check(context) {
+			var hasVariables = checkVariables(context);
+			var hasBases;
+
+			if (!hasVariables) {
+				hasBases = checkBases(context);
+			}
+
+			return hasVariables || hasBases;
+		}
+
+		while (check(this)) {}
+
 	};
 
 	this.reset = function() {

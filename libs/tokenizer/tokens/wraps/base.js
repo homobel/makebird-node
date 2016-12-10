@@ -85,18 +85,29 @@ function BaseTokenProto() {
 	};
 
 	this.transformToReg = function() {
-		var res = '';
+		var res = '',
+			start = '^',
+			end = '',
+			body = [];
+
 		if (this.isRelative()) {
-			res += '(?:^|.+[.])';
+			start = '(?:^|.+[.])';
 		}
-		else {
-			res += '^';
-		}
-		res += this.getPhysicalNsString().replace('.', '[.]');
+
+		this.getPhysicalNs().forEach(function(c, i) {
+			if (i) {
+				body.push(body[body.length - 1] + '[.]' + c);
+			}
+			else {
+				body.push(c);
+			}
+		});
+
 		if (!this.isGeneral()) {
-			res += '$';
+			end = '$';
 		}
-		this.reg = new RegExp(res);
+
+		this.reg = new RegExp(start + '(?:' + body.join('|') + ')' + end);
 	};
 
 }

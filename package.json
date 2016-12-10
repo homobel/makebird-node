@@ -1,11 +1,11 @@
 {
 	"name": "makebird",
-	"version": "0.0.12",
+	"version": "0.1.0",
 	"description": "geeks builder for non modular languages",
 	"homepage": "http://makebird.org",
 	"main": "index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "node test/check.js"
 	},
 	"repository": {
 		"type": "git",

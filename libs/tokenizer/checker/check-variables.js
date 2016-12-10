@@ -23,14 +23,21 @@ function getPreviousDefines(context) {
 }
 
 function checkVariables(tree) {
+	return tree.forEachVariable(function(context) {
 
-	tree.forEachVariable(function(context) {
+		if (!context.isRequired) {
 
-		var required = getPreviousDefines(context);
+			var defines = getPreviousDefines(context);
 
-		context.isRequired = required.some(function(c) {
-			return c.value === context.nameText;
-		});
+			context.isRequired = defines.some(function(c) {
+				return c.value === context.nameText;
+			});
+
+			if (context.isRequired) {
+				return true;
+			}
+
+		}
 
 	});
 
