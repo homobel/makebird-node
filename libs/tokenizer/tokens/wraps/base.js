@@ -19,13 +19,12 @@ function BaseToken(token, context) {
 	this._token = clone(token);
 	this.value = token.value;
 	this.split = token.value.split(separatorChar);
-	this.reg = null;
 
 	this.checkErrors();
 	this.checkNamespaceLength();
 	this.checkNamespace();
 
-	this.transformToReg();
+	// this.transformToReg();
 }
 
 function BaseTokenProto() {
@@ -84,30 +83,43 @@ function BaseTokenProto() {
 
 	};
 
-	this.transformToReg = function() {
-		var res = '',
-			start = '^',
-			end = '',
-			body = [];
+	this.match = function(ns) {
+		var baseNs = this.getPhysicalNs();
+		var first = baseNs[0];
 
-		if (this.isRelative()) {
-			start = '(?:^|.+[.])';
+		var i = ns.indexOf(first);
+
+		if ((i === -1) || (!this.isRelative() && i !== 0)) {
+			return false;
 		}
 
-		this.getPhysicalNs().forEach(function(c, i) {
-			if (i) {
-				body.push(body[body.length - 1] + '[.]' + c);
-			}
-			else {
-				body.push(c);
-			}
-		});
+		var nsc = ns.slice(i);
 
-		if (!this.isGeneral()) {
-			end = '$';
+		var u = 0;
+		var nscl = nsc.length;
+		var baseNsl = baseNs.length;
+
+		if (nscl === baseNsl || nscl < baseNsl) {
+			for (; u < nscl; u++) {
+				if (nsc[u] !== baseNs[u]) {
+					return false;
+				}
+			}
+
+			return true;
 		}
 
-		this.reg = new RegExp(start + '(?:' + body.join('|') + ')' + end);
+		if (nscl > baseNsl && this.isGeneral()) {
+			for (; u < baseNsl; u++) {
+				if (nsc[u] !== baseNs[u]) {
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		return false;
 	};
 
 }

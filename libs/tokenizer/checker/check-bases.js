@@ -6,7 +6,7 @@ function contextHasBase(context, bases) {
 	}
 
 	return bases.some(function(base) {
-		return base.reg.test(context.namespaceStr);
+		return base.match(context.namespace);
 	});
 
 }

@@ -11,7 +11,7 @@ fs.readdir(resourcesDir, function (err, files) {
 		var projectName = path.basename(file, '.js');
 		var error;
 
-		buildSingle(projectName, function(err, data) {
+		buildSingle(projectName, function(err, data, times) {
 			if (err) {
 				console.error(err);
 				error = err;
@@ -21,7 +21,7 @@ fs.readdir(resourcesDir, function (err, files) {
 			var condition = content === data.toString();
 			console.assert(condition, 'result not match sample for: ' + projectName);
 			if (condition) {
-				console.info('project: ' + projectName + ' - ok');
+				console.info('project: ' + projectName + ' - ok, parsed: ' + times.parsed + ', processed: ' + times.processed);
 			}
 		});
 
